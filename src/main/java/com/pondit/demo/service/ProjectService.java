@@ -3,6 +3,7 @@ package com.pondit.demo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,4 +51,23 @@ public class ProjectService {
         return new Project(savedEntityId, savedEntityName, savedEntityDescription);
     }
 
+    public Project getProjectById(Long id) {
+        ProjectEntity projectEntity = projectRepository.findById(id).orElse(null);
+        Long entityid = projectEntity.getId();
+        String name = projectEntity.getName();
+        String description = projectEntity.getDescription();
+        Project project = new Project(entityid, name, description);
+
+        return project;
+
+    }
+
+    public void deleteProjectById(Long id) {
+        ProjectEntity projectEntity = projectRepository.findById(id).orElse(null);
+        if (projectEntity != null) {
+            projectRepository.delete(projectEntity);
+        } else {
+            throw new RuntimeException("Project not found");
+        }
+    }
 }

@@ -1,9 +1,12 @@
 package com.pondit.demo.model.domain;
 
 public class Project {
-    private final Long id;
-    private final String name; // required
-    private final String description; // required
+    private  Long id;
+    private  String name; // required
+    private  String description; // required
+
+    public Project() {
+    }
 
     // creation an object of Project
     public Project(Long id, String name, String description) {

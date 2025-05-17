@@ -8,3 +8,18 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Maven build directory
+/target/
+
+# IntelliJ IDEA project files
+/.idea/
+/*.iml
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+
+# Compiled files
+*.class

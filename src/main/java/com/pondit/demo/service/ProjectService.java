@@ -1,15 +1,15 @@
 package com.pondit.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.pondit.demo.Entity.ProjectEntity;
 import com.pondit.demo.model.domain.Project;
 import com.pondit.demo.model.dto.CreateProjectRequest;
 import com.pondit.demo.repository.ProjectRepository;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ProjectService {

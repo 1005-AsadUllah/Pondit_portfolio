@@ -131,20 +131,19 @@
         </div>
       </div>
       <!-- Experience -->
-      <div class="neubrutalist-card p-4 resume-section">
-        <h2>Experience</h2>
-        <div class="resume-item d-flex justify-content-between" th:each="exp : ${experienceList}">
-          <div>
-            <h4 th:text="${exp.title}"></h4>
-            <p><strong th:text="${exp.company}"></strong>
-            <p th:text="${exp.description}"></p>
+        <div class="neubrutalist-card p-4 resume-section">
+          <h2>Experience</h2>
+          <div class="resume-item d-flex justify-content-between" th:each="exp : ${experienceList}">
+            <div>
+              <h4 th:text="${exp.title}"></h4>
+              <p><strong th:text="${exp.company}"></strong></p>
+              <p th:text="${exp.description}"></p>
+            </div>
+            <div>
+              <span><strong th:text="${exp.years}">2022 - Present</strong></span>
+            </div>
           </div>
-          <div>
-            <span><strong th:text="${exp.years}">2022 - Present </strong></span></p>
-          </div>
-
         </div>
-      </div>
       <!-- Skills -->
       <div class="neubrutalist-card p-4 resume-section">
         <h2>Skills</h2>
@@ -152,7 +151,7 @@
           <li>Java</li>
           <li>Spring Boot</li>
           <li>Microservices</li>
-          <li>PostgreSQL</li>
+          <li>MySql</li>
           <li>Thymeleaf</li>
           <li>Tailwind CSS</li>
         </ul>

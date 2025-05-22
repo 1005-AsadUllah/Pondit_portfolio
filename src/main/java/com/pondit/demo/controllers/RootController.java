@@ -2,6 +2,8 @@ package com.pondit.demo.controllers;
 
 import com.pondit.demo.config.ResumeConfig;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
@@ -26,11 +28,14 @@ public class RootController {
     @Value("${site.description}")
     private String siteDescription;
 
+    private static Logger log = LoggerFactory.getLogger(RootController.class);
+
     @GetMapping
         public String indexPage (Model model)
 
         {
 
+            log.info("setting attribute for index page");
             model.addAttribute("title", siteTitle);
             model.addAttribute("description", siteDescription);
             model.addAttribute("personalInfo", resumeConfig.getPersonalInfo());
@@ -38,6 +43,7 @@ public class RootController {
            model.addAttribute("experienceList", resumeConfig.getExperience());
             model.addAttribute("skills", resumeConfig.getSkills());
 
+            log.info("Rendering index page");
             return "home";
         }
     }

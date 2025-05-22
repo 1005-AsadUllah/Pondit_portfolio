@@ -2,6 +2,7 @@ package com.pondit.demo.controllers;
 
 import com.pondit.demo.config.ResumeConfig;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -19,12 +20,19 @@ public class RootController {
     public RootController(ResumeConfig resumeConfig) {
         this.resumeConfig = resumeConfig;
     }
+    @Value("${site.title}")
+    private String siteTitle;
+
+    @Value("${site.description}")
+    private String siteDescription;
 
     @GetMapping
         public String indexPage (Model model)
 
         {
 
+            model.addAttribute("title", siteTitle);
+            model.addAttribute("description", siteDescription);
             model.addAttribute("personalInfo", resumeConfig.getPersonalInfo());
             model.addAttribute("educationList", resumeConfig.getEducation());
            model.addAttribute("experienceList", resumeConfig.getExperience());

@@ -3,6 +3,7 @@ package com.pondit.demo.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pondit.demo.exception.NotFoundException;
 import com.pondit.demo.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +22,8 @@ public class ProjectRestController {
     @Autowired
     ProjectService projectService;
 
+
+    //create a new project
     @Operation(summary = "Create a new project")
     @PostMapping
     public Project createProject(@RequestBody CreateProjectRequest request) {
@@ -28,37 +31,27 @@ public class ProjectRestController {
         return projectService.createProject(request);
     }
 
+    // Get all projects
     @Operation(summary = "Get all projects")
     @GetMapping
     public List<Project> getAllProjects() {
+
         return projectService.getAllProjects();
     }
 
+    // Get a project by ID
     @Operation(summary = "Get a project by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
-        try {
-            Project project = projectService.getProjectById(id);
-            if (project != null) {
-                return ResponseEntity.ok(project);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-
-        }
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) throws NotFoundException {
+        return  ResponseEntity.ok(projectService.getProjectById(id));
     }
 
+
+    //Delete a project by ID
     @Operation(summary = "Delete a project by ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProjectById(@PathVariable Long id) {
-        try {
-            projectService.deleteProjectById(id);
-            return ResponseEntity.ok("Project deleted successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error deleting project");
-        }
+    public void deleteProjectById(@PathVariable Long id) throws NotFoundException {
+        projectService.deleteProjectById(id);
     }
     
 

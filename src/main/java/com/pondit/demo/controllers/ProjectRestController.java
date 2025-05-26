@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pondit.demo.exception.NotFoundException;
+import com.pondit.demo.model.dto.UpdateProjectRequest;
 import com.pondit.demo.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,6 +47,12 @@ public class ProjectRestController {
         return  ResponseEntity.ok(projectService.getProjectById(id));
     }
 
+    // Update a project by ID
+    @Operation(summary = "Update a project by id")
+    @PutMapping("{id}")
+    public void updateProject(@PathVariable Long id, @RequestBody UpdateProjectRequest request) throws NotFoundException {
+        projectService.updateProject(id, request);
+    }
 
     //Delete a project by ID
     @Operation(summary = "Delete a project by ID")

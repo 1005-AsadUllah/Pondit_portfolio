@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pondit.demo.exception.NotFoundException;
+import com.pondit.demo.model.dto.UpdateProjectRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,8 @@ public class ProjectService {
 
     public Project createProject(CreateProjectRequest request) {
         // request
-        String name = request.getName();
-        String description = request.getDescription();
+        String name = request.name();
+        String description = request.description()  ;
 
         // save to database
         ProjectEntity entity = new ProjectEntity();
@@ -73,5 +74,11 @@ public class ProjectService {
         } else {
             throw new NotFoundException("Project not found");
         }
+    }
+
+    public void updateProject(Long id, UpdateProjectRequest request) throws NotFoundException {
+        ProjectEntity projectEntity = projectRepository.findById(id).orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
+        projectEntity.setDescription(request.description());
+        projectRepository.save(projectEntity);
     }
 }

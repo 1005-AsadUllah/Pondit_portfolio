@@ -1,11 +1,11 @@
 package com.pondit.demo.service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.pondit.demo.exception.NotFoundException;
 import com.pondit.demo.model.dto.UpdateProjectRequest;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +20,11 @@ public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public List<Project> getAllProjects() {
+    public List<Project> getAllProjects(Pageable pageable) {
 
         List<Project> projectList = new ArrayList<>();
 
-        List<ProjectEntity> entityList = (List<ProjectEntity>) projectRepository.findAll();
+        List<ProjectEntity> entityList = (List<ProjectEntity>) projectRepository.findAll(pageable).getContent();
 //        BeanUtils.copyProperties(entityList,projectList);
 //        return projectList;
         return entityList.stream().map(projectEntity -> {
@@ -80,5 +80,25 @@ public class ProjectService {
         ProjectEntity projectEntity = projectRepository.findById(id).orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
         projectEntity.setDescription(request.description());
         projectRepository.save(projectEntity);
+    }
+
+    public String newProject(ProjectEntity projectEntity) {
+        projectRepository.save(projectEntity);
+        return "New project created with name: " + projectEntity.getName();
+    }
+
+    public ProjectEntity getProject(Long id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
+    }
+
+    public List<ProjectEntity> getAllProject() {
+        return (List<ProjectEntity>) projectRepository.findAll();
+    }
+
+    public void deleteProject(Long id) {
+        ProjectEntity projectEntity = projectRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
+        projectRepository.delete(projectEntity);
     }
 }

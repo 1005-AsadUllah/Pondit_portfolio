@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 public class ProjectEntity {
 
+
     @Id
     @GeneratedValue
     private Long id;
@@ -19,6 +20,8 @@ public class ProjectEntity {
 
     @Setter
     private String description;
+
+
 
 
 

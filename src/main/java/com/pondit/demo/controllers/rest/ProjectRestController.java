@@ -1,6 +1,7 @@
-package com.pondit.demo.controllers;
+package com.pondit.demo.controllers.rest;
 
-import java.util.ArrayList;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 import com.pondit.demo.exception.NotFoundException;
@@ -8,6 +9,7 @@ import com.pondit.demo.model.dto.UpdateProjectRequest;
 import com.pondit.demo.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +37,9 @@ public class ProjectRestController {
     // Get all projects
     @Operation(summary = "Get all projects")
     @GetMapping
-    public List<Project> getAllProjects() {
+    public List<Project> getAllProjects(@ParameterObject Pageable pageable) {
 
-        return projectService.getAllProjects();
+        return projectService.getAllProjects(pageable);
     }
 
     // Get a project by ID

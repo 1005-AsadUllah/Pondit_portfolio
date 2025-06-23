@@ -1,4 +1,4 @@
-package com.pondit.demo.controllers;
+package com.pondit.demo.controllers.web;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

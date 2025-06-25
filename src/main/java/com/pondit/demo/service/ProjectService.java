@@ -82,23 +82,4 @@ public class ProjectService {
         projectRepository.save(projectEntity);
     }
 
-    public String newProject(ProjectEntity projectEntity) {
-        projectRepository.save(projectEntity);
-        return "New project created with name: " + projectEntity.getName();
-    }
-
-    public ProjectEntity getProject(Long id) {
-        return projectRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
-    }
-
-    public List<ProjectEntity> getAllProject() {
-        return (List<ProjectEntity>) projectRepository.findAll();
-    }
-
-    public void deleteProject(Long id) {
-        ProjectEntity projectEntity = projectRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
-        projectRepository.delete(projectEntity);
-    }
 }

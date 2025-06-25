@@ -9,6 +9,7 @@ import com.pondit.demo.model.dto.CreateProjectRequest;
 import com.pondit.demo.model.dto.UpdateProjectRequest;
 import com.pondit.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,24 +27,12 @@ public class PostService {
     public List<Post> getAllPosts(Pageable pageable) {
 
         List<PostEntity> entityList =postRepository.findAll(pageable).getContent();
-//        BeanUtils.copyProperties(entityList,projectList);
-//        return projectList;
-        return entityList.stream().map(postEntity -> {
-            Long entityId = postEntity.getId();
-            String entityTitle = postEntity.getTitle();
-            String entityContent = postEntity.getContent();
-            String entitySlug = postEntity.getSlug();
-            Boolean entityPublished = postEntity.getPublished();
-            LocalDateTime entityPublishAt = postEntity.getPublishAt();
-            Post post = new Post();
-            post.setId(entityId);
-            post.setTitle(entityTitle);
-            post.setContent(entityContent);
-            post.setSlug(entitySlug);
-            post.setPublished(entityPublished);
-            post.setPublishAt(entityPublishAt != null ? entityPublishAt.toLocalDate() : null);
-            return post;
-        }).toList();
+        return entityList.stream()
+                .map(entity -> {
+                    Post post = new Post();
+                    BeanUtils.copyProperties(entity, post);
+                    return post;
+                }).toList();
     }
 //
 //    public Project createProject(CreateProjectRequest request) {

@@ -1,5 +1,6 @@
 package com.pondit.demo.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,9 @@ public class ProjectService {
 //        BeanUtils.copyProperties(entityList,projectList);
 //        return projectList;
         return entityList.stream().map(projectEntity -> {
-            Long entityId = projectEntity.getId();
-            String entityName = projectEntity.getName();
-            String entityDescription = projectEntity.getDescription();
-            return new Project(entityId, entityName, entityDescription);
+            Project project = new Project();
+            BeanUtils.copyProperties(projectEntity, project);
+            return  project;
         }).toList();
     }
 
